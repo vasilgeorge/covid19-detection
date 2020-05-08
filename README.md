@@ -1,7 +1,7 @@
 # covid19-detection
 
 
-Covid19-detection is a Machine Learning model used to detect Covid19 from patients' chest X-Rays images taken from -> https://github.com/UCSD-AI4H/COVID-CT.
+Covid19-detection is a Machine Learning model used to detect Covid19 from patients' chest X-Rays images taken from here: https://github.com/UCSD-AI4H/COVID-CT.
 
 The Machine Learning model used in this work is a Random Forest Classifier that classifies an X-Ray image as positive or negative implying whether the patient has contracted Covid19 or not with a 95% detection accuracy.
 
