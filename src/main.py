@@ -18,7 +18,8 @@ import multiprocessing
 from multiprocessing import Process, Manager
 
 
-def main(base_dir, input_path, out_path):
+def main(base_dir):
+
 
 	def run_preprocessing_pipeline(image_id):
 	    image_path = os.path.join(base_dir, image_id)
@@ -30,7 +31,7 @@ def main(base_dir, input_path, out_path):
 	    return feature_dictionary
 
 
-	input_df = feather.read_dataframe(input_path)
+	input_df = utils.preprocess_dataset(base_dir)
 	image_ids = list(input_df['image_id'])
 
 	with multiprocessing.Pool() as pool:
@@ -100,7 +101,5 @@ def main(base_dir, input_path, out_path):
 
 
 if __name__ == "__main__":
-	base_dir = '...'
-	input_path = '...'
-	out_path = '...'
-	main(base_dir, input_path, out_path)
+	base_dir = '../data/'
+	main(base_dir)

@@ -20,6 +20,28 @@ import pandas as pd
 import sys
 import copy
 
+import os
+import shutil
+
+
+def preprocess_dataset(base_dir):
+    covid_df = pd.DataFrame(columns=['image_id', 'is_covid'])
+    non_covid_df = pd.DataFrame(columns=['image_id', 'is_covid'])
+
+    for file in os.listdir(os.path.join(base_dir, 'CT_COVID')):
+        new_row = pd.DataFrame(data={'image_id': [file], 'is_covid':[1]})
+        covid_df = pd.concat([covid_df, new_row], ignore_index=True, sort=False)
+        shutil.copy(base_dir + 'CT_COVID/' + file, base_dir + 'training_data/' + file)
+        
+    for file in os.listdir(os.path.join(base_dir, 'CT_NonCOVID')):
+        new_row = pd.DataFrame(data={'image_id': [file], 'is_covid':[0]})
+        non_covid_df = pd.concat([non_covid_df, new_row], ignore_index=True, sort=False)
+        shutil.copy(base_dir + 'CT_NonCOVID/' + file, base_dir + 'training_data/' + file)
+        
+    df = pd.concat([covid_df, non_covid_df], ignore_index=True, sort=False)
+
+    return df
+
 
 def segment_lungs(image: np.ndarray, display=False)->np.ndarray:
     row_size= image.shape[0]
